@@ -9,6 +9,7 @@ def criar_tabelas():
         link_imagem text NOT NULL,
         nome_desafio text NOT NULL,
         resposta text NOT NULL, 
+        estado integer NOT NULL
     )
     """)
     cursor.execute("""
@@ -25,11 +26,50 @@ def novo_desafio(lista):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
     cursor.execute("""
-    insert into desafios(nome_desafio, resposta, link_imagem)
-    values (?,?,?)
+    insert into desafios(nome_desafio, resposta, link_imagem, estado)
+    values (?,?,?,?)
     """, lista)
     conn.close()
 
+def deletar_desafios(id_desafio):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    DELETE FROM desafios
+    WHERE id = ?
+    """,id_desafio)
+    conn.commit()
+    conn.close()
+
+def atualizar_desafios(lista):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    UPDATE desafios
+    SET link_imagem = ?, nome_desafio = ?, resposta = ?
+    WHERE id = ?
+    """,lista)
+    conn.close()
+
+def buscar_desafio(id_desafio):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    SELECT * FROM desafios
+    WHERE id = ?
+    """,id_desafio)
+    return cursor.fetchone()
+    conn.close()
+
+def atualizar_status(lista):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+    UPDATE desafios
+    SET estado = ?
+    WHERE id = ?
+    """,lista)
+    conn.close()
 
 def novo_finalista(lista):
     conn = sqlite3.connect('data.db')
@@ -49,3 +89,4 @@ def consultar_finalistas():
     """)
     return cursor.fetchall()
     conn.close()
+
