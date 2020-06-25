@@ -1,3 +1,21 @@
 {%extends "template.html"%}
+
+{%block header%}
+<h1>{%block title%}Novos Desafios{%endblock%}</h1>
+{%endblock%}
+
 {%block content%}
+
+<form method="post" action="/novo_desafio" >
+    <label for="nome_desafio">Nome do Desafio</label>
+    <input type= "text" name="desafio" required>
+    <label for="resposta">Resposta</label>
+    <input type="text" name="resposta" required>
+    <label for="link">Link da imagem</label>
+    <input type="text" name="link" required>
+    <label for="estado">Visibilidade</label>
+    <input type="number" name="estado">
+    <input type="button" value="save">
+</form>
+
 {%endblock%}
