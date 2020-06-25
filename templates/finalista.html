@@ -5,5 +5,8 @@
 {%endblock%}
 
 {%block content%}
-
+    {%for f in fin%}
+        <h2>Name: {{f[1]}}</h2>
+        <p>{{f[2]}}</p>
+    {%endfor}
 {%endblock%}
